@@ -1,37 +1,27 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { StyleSheet, Text, View } from 'react-native'
+import { Slot,Stack } from 'expo-router'
+import { Appbar } from 'react-native-paper'
+import { Header } from 'react-native/Libraries/NewAppScreen'
+import { createStackNavigator } from '@react-navigation/stack';
+import App from './index'
+import ChatLayout from "./(chats)/_layout"
+import { FloatingAction } from "react-native-floating-action";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+const RootLayout = () => {
+  // const Stack = createStackNavigator()
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name = "index" options={{headerShown : false}}/>
+        <Stack.Screen name = "(chats)"  options={{headerShown: false}}/>
+        <Stack.Screen name = "(settings)"  options={{headerShown: false}}/>
       </Stack>
-    </ThemeProvider>
-  );
+      
+    </>
+      
+  )
 }
+
+export default RootLayout
